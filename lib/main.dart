@@ -21,7 +21,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: purple, // Desired color
+      
+    ));
     return MaterialApp(
+      color: purple,
       title: 'Jabu Handbook',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
