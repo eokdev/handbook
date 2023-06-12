@@ -74,7 +74,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      SlidefromTop(
+                      ScaleAnimation(
+                        scale: 1,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
                           child: Container(
@@ -184,8 +185,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         controller: _searchController,
                                         cursorColor: purple,
                                         decoration: InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.fromLTRB(15, 8, 15, 8),
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                15, 8, 15, 8),
                                             hintStyle: GoogleFonts.inter(
                                                 fontSize: 18,
                                                 color: Colors.grey,
@@ -241,8 +242,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                   //                 )));
                                                 },
                                                 child: SlidefromBottom(
-                                             child:
-                                                  Column(
+                                                  child: Column(
                                                     children: [
                                                       Container(
                                                         height: 80,
@@ -403,17 +403,18 @@ class _SlidefromRightState extends ConsumerState<SlidefromRight>
   }
 }
 
-
 class SlidefromBottom extends ConsumerStatefulWidget {
   final Widget child;
   const SlidefromBottom({super.key, required this.child});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _SlidefromBottomState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _SlidefromBottomState();
 }
 
-class _SlidefromBottomState extends ConsumerState<SlidefromBottom>with SingleTickerProviderStateMixin {
- late AnimationController _animationController;
+class _SlidefromBottomState extends ConsumerState<SlidefromBottom>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
   late Animation<Offset> _animation;
 
   @override
@@ -444,7 +445,10 @@ class _SlidefromBottomState extends ConsumerState<SlidefromBottom>with SingleTic
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(position: _animation, child: widget.child,);
+    return SlideTransition(
+      position: _animation,
+      child: widget.child,
+    );
   }
 }
 
@@ -456,8 +460,9 @@ class SlidefromTop extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _SlidefromTopState();
 }
 
-class _SlidefromTopState extends ConsumerState<SlidefromTop>with SingleTickerProviderStateMixin {
- late AnimationController _animationController;
+class _SlidefromTopState extends ConsumerState<SlidefromTop>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
   late Animation<Offset> _animation;
 
   @override
@@ -488,6 +493,9 @@ class _SlidefromTopState extends ConsumerState<SlidefromTop>with SingleTickerPro
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(position: _animation, child: widget.child,);
+    return SlideTransition(
+      position: _animation,
+      child: widget.child,
+    );
   }
 }
