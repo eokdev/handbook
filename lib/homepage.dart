@@ -22,6 +22,13 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final _searchController = TextEditingController();
+  Key keyy = UniqueKey();
+  void restartApp() {
+    setState(() {
+      keyy = UniqueKey();
+    });
+  }
+
   List<RestApi> taskk = [];
   List<RestApi> suggestion = [];
   late List<RestApi> done = Set.of(suggestion).toList();
@@ -44,6 +51,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       child: AnimationConfiguration.synchronized(
         duration: const Duration(milliseconds: 500),
         child: Scaffold(
+          key: keyy,
           resizeToAvoidBottomInset: false,
           backgroundColor: Color(0xffF8F4FE),
           body: SafeArea(
@@ -89,90 +97,95 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                       ),
                       SizedBox(height: 20),
-                      ScaleAnimation(
-                        scale: 1,
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                          child: Container(
-                            height: 140,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                color: purple.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          height: 120,
-                                          width: 60,
-                                          decoration: BoxDecoration(
-                                              color: purple,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          child: Image(
-                                            image: AssetImage(
-                                              "images/hand.png",
+                      FadeAnimation(
+                        0.2,
+                        SlidefromBottom(
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                            child: Container(
+                              height: 140,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  color: purple.withOpacity(0.3),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Expanded(
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            height: 120,
+                                            width: 60,
+                                            decoration: BoxDecoration(
+                                                color: purple,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Image(
+                                              image: AssetImage(
+                                                "images/hand.png",
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "JABU STUDENT HANDBOOK",
-                                                style: GoogleFonts.inter(
-                                                    color: purple,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              ),
-                                              Text("TABLE OF CONTENT",
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                          SizedBox(
+                                            width: 20,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "JABU STUDENT HANDBOOK",
                                                   style: GoogleFonts.inter(
                                                       color: purple,
-                                                      fontSize: 15)),
-                                              ElevatedButton(
-                                                  style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(
-                                                    purple.withOpacity(0.4),
-                                                  )),
-                                                  onPressed: () {},
-                                                  child: Text(
-                                                    "HANDBOOK",
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                                Text("TABLE OF CONTENT",
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
                                                     style: GoogleFonts.inter(
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 10),
-                                                  ))
-                                            ],
-                                          ),
-                                        )
-                                      ],
+                                                        color: purple,
+                                                        fontSize: 15)),
+                                                ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all(
+                                                      purple.withOpacity(0.4),
+                                                    )),
+                                                    onPressed: () {},
+                                                    child: Text(
+                                                      "HANDBOOK",
+                                                      style: GoogleFonts.inter(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 10),
+                                                    ))
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    width: 70,
-                                    height: 100,
-                                    child: Image(
-                                        image: AssetImage("images/undraw.png")),
-                                  )
-                                ],
+                                    Container(
+                                      width: 70,
+                                      height: 100,
+                                      child: Image(
+                                          image:
+                                              AssetImage("images/undraw.png")),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -216,21 +229,21 @@ class _HomePageState extends ConsumerState<HomePage> {
                                             setState(() {});
                                           },
                                           decoration: InputDecoration(
-                                              contentPadding:
-                                                  EdgeInsets.fromLTRB(
-                                                      15, 8, 15, 8),
-                                              hintStyle: GoogleFonts.inter(
-                                                  fontSize: 18,
-                                                  color: Colors.grey,
-                                                  letterSpacing: 2),
-                                              hintText: "Search...",
-                                              border: InputBorder.none,
-                                              focusedBorder: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(25),
-                                                  borderSide: BorderSide(
-                                                      color: purple,
-                                                      width: 2))),
+                                            contentPadding: EdgeInsets.fromLTRB(
+                                                15, 8, 15, 8),
+                                            hintStyle: GoogleFonts.inter(
+                                                fontSize: 18,
+                                                color: Colors.grey,
+                                                letterSpacing: 2),
+                                            hintText: "Search...",
+                                            border: InputBorder.none,
+                                            focusedBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                              borderSide: BorderSide(
+                                                  color: purple, width: 2),
+                                            ),
+                                          ),
                                         )),
                                   ),
                                 ),
@@ -339,8 +352,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   style: ButtonStyle(
                                       backgroundColor:
                                           MaterialStateProperty.all(purple)),
-                                  onPressed: () async =>
-                                      ref.refresh(userDataProvider),
+                                  onPressed: () {
+                                    setState(() {
+                                      restartApp();
+                                    });
+                                  },
                                   child: Text("Refresh",
                                       style: GoogleFonts.inter(
                                           fontSize: 16, color: Colors.white))),

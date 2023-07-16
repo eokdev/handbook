@@ -19,7 +19,7 @@ class TaskController {
 
     if (response.statusCode == 200) {
       List json = jsonDecode(response.body);
-      fetcher = List.from(json).map((e) => RestApi.fromJson(e)).toList();
+   final   fetcher = List.from(json).map((e) => RestApi.fromJson(e)).toList();
       // print(fetcher);
       return fetcher;
     } else {
@@ -27,20 +27,8 @@ class TaskController {
     }
   }
 
-  List<RestApi> fetcher = <RestApi>[];
-  List<RestApi> launch = <RestApi>[];
+ 
 }
 
 final userProvider = Provider<TaskController>((ref) => TaskController());
-   // json.forEach((element) {
-      //   Map obj = element;
-      //   var name = subJson1[3];
-      //   print(name);
-      // });
 
-            //     var restApi = restApiFromJson(json.toString());
-      //     // SubCategoryElement element = SubCategoryElement.fromJson(json);
-      //  for (var e in json) {
-      //    tasksList.add(RestApi.fromJson(e));
-
-      //  }
