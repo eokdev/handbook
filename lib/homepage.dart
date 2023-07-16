@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:handbook/animation.dart';
+import 'package:handbook/restApi.dart';
+import 'package:handbook/sectionPage.dart';
+
+import 'anotherListClass.dart';
 
 Color purple = Color(0xff2F2754);
 
@@ -17,9 +22,19 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   final _searchController = TextEditingController();
+  List<RestApi> taskk = [];
+  List<RestApi> suggestion = [];
+  late List<RestApi> done = Set.of(suggestion).toList();
+  @override
+  void initState() {
+    suggestion;
+    //   suggestion = taskk;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final tasks = ref.watch(userDataProvider);
     ScrollController scrollController =
         ScrollController(initialScrollOffset: 0);
     return GestureDetector(
@@ -166,43 +181,63 @@ class _HomePageState extends ConsumerState<HomePage> {
                       SizedBox(
                         height: 20,
                       ),
-                      Flexible(
-                        child: Container(
-                          child: Column(
-                            children: [
-                              SlidefromRight(
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                                  child: Container(
-                                      width: double.infinity,
-                                      height: 45,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(color: purple),
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      child: TextFormField(
-                                        autofocus: false,
-                                        controller: _searchController,
-                                        cursorColor: purple,
-                                        decoration: InputDecoration(
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                15, 8, 15, 8),
-                                            hintStyle: GoogleFonts.inter(
-                                                fontSize: 18,
-                                                color: Colors.grey,
-                                                letterSpacing: 2),
-                                            hintText: "Search...",
-                                            border: InputBorder.none,
-                                            focusedBorder: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                borderSide: BorderSide(
-                                                    color: purple, width: 2))),
-                                      )),
+                      tasks.when(
+                        data: (data) {
+                          List<RestApi> task = data.map((e) => e).toList();
+
+                          for (int i = 0; i < task.length; i++) {
+                            suggestion.add(task[i]);
+                          }
+                          return Expanded(
+                            child: Column(
+                              children: [
+                                SlidefromRight(
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                    child: Container(
+                                        width: double.infinity,
+                                        height: 45,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(color: purple),
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: TextFormField(
+                                          autofocus: false,
+                                          controller: _searchController,
+                                          cursorColor: purple,
+                                          onChanged: (text) {
+                                            done = task.where((element) {
+                                              final textes = text.toLowerCase();
+
+                                              return element.chapter!
+                                                  .toLowerCase()
+                                                  .contains(textes);
+                                            }).toList();
+                                            setState(() {});
+                                          },
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  EdgeInsets.fromLTRB(
+                                                      15, 8, 15, 8),
+                                              hintStyle: GoogleFonts.inter(
+                                                  fontSize: 18,
+                                                  color: Colors.grey,
+                                                  letterSpacing: 2),
+                                              hintText: "Search...",
+                                              border: InputBorder.none,
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(25),
+                                                  borderSide: BorderSide(
+                                                      color: purple,
+                                                      width: 2))),
+                                        )),
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: CupertinoScrollbar(
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                CupertinoScrollbar(
                                   thumbVisibility: true,
                                   controller: scrollController,
                                   child: Theme(
@@ -222,24 +257,24 @@ class _HomePageState extends ConsumerState<HomePage> {
                                           itemCount: 5,
                                           itemBuilder:
                                               (BuildContext context, index) {
+                                            var test = done[index];
                                             //  print(taskk.length);
                                             return Padding(
                                               padding:
                                                   EdgeInsets.only(bottom: 10),
                                               child: InkWell(
                                                 onTap: () {
-                                                  // Navigator.push(
-                                                  //     context,
-                                                  //     CupertinoPageRoute(
-                                                  //         builder:
-                                                  //             (context) =>
-                                                  //                 SectionPage(
-                                                  //                   subCategory:
-                                                  //                       test.subCategory,
-                                                  //                   // subCart: test.subCategory,
-                                                  //                   restApi:
-                                                  //                       test.chapter,
-                                                  //                 )));
+                                                  Navigator.push(
+                                                      context,
+                                                      CupertinoPageRoute(
+                                                          builder: (context) =>
+                                                              SectionPage(
+                                                                subCategory: test
+                                                                    .subCategory,
+                                                                //subCart: test.subCategory,
+                                                                restApi: test
+                                                                    .chapter,
+                                                              )));
                                                 },
                                                 child: SlidefromBottom(
                                                   child: Column(
@@ -290,8 +325,36 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     ),
                                   ),
                                 ),
+                              ],
+                            ),
+                          );
+                        },
+                        error: (err, s) => Expanded(
+                          child: Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("Connect to the Internet "),
+                              ElevatedButton(
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(purple)),
+                                  onPressed: () async =>
+                                      ref.refresh(userDataProvider),
+                                  child: Text("Refresh",
+                                      style: GoogleFonts.inter(
+                                          fontSize: 16, color: Colors.white))),
+                              SizedBox(
+                                height: 10,
                               ),
+                              Text(
+                                  "After refresh, and error persists... Pls, restart Application."),
                             ],
+                          )),
+                        ),
+                        loading: () => Expanded(
+                          child: Center(
+                            child: SpinKitFadingCube(color: purple),
                           ),
                         ),
                       ),

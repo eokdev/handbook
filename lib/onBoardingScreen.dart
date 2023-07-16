@@ -53,7 +53,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "FPB",
+                        "JABU",
                         style: GoogleFonts.inter(
                           fontSize: 30,
                           color: purple,
