@@ -10,7 +10,7 @@ import 'package:handbook/restApi.dart';
 import 'apiController.dart';
 
 final userDataProvider = FutureProvider<List<RestApi>>((ref) async {
-  return ref.watch(userProvider).getPostApi();
+  return await ref.watch(userProvider).getPostApi();
 });
 
 // final launcherData= FutureProvider<List<RestApi>>((ref) async{

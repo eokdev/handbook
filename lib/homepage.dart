@@ -342,35 +342,47 @@ class _HomePageState extends ConsumerState<HomePage> {
                             ),
                           );
                         },
-                        error: (err, s) => Expanded(
-                          child: Center(
-                              child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text("Connect to the Internet "),
-                              ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.all(purple)),
-                                  onPressed: () {
-                                    setState(() {
-                                      restartApp();
-                                    });
-                                  },
-                                  child: Text("Refresh",
-                                      style: GoogleFonts.inter(
-                                          fontSize: 16, color: Colors.white))),
-                              SizedBox(
-                                height: 10,
+                        error: (err, s) => tasks.isRefreshing
+                            ? Expanded(
+                              child: Center(
+                                  child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SpinKitFadingFour(color: purple),
+                                  ],
+                                )),
+                            )
+                            : Expanded(
+                                child: Center(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Connect to the Internet "),
+                                    ElevatedButton(
+                                        style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    purple)),
+                                        onPressed: () async {
+                                          ref.refresh(userDataProvider);
+                                        },
+                                        child: Text("Refresh",
+                                            style: GoogleFonts.inter(
+                                                fontSize: 16,
+                                                color: Colors.white))),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                        "After refresh, and error persists... Pls, restart Application."),
+                                  ],
+                                )),
                               ),
-                              Text(
-                                  "After refresh, and error persists... Pls, restart Application."),
-                            ],
-                          )),
-                        ),
                         loading: () => Expanded(
                           child: Center(
-                            child: SpinKitFadingCube(color: purple),
+                            child: 
+                                SpinKitFadingFour(color: purple),
                           ),
                         ),
                       ),

@@ -16,11 +16,11 @@ class TaskController {
     var uri = Uri.parse(
         "https://mtube-rest-api.herokuapp.com/handbook/api/handbook-list-handbook");
     final response = await client.get(uri);
-
+print(response.body);
     if (response.statusCode == 200) {
       List json = jsonDecode(response.body);
    final   fetcher = List.from(json).map((e) => RestApi.fromJson(e)).toList();
-      // print(fetcher);
+      print(fetcher);
       return fetcher;
     } else {
       throw Exception(response.reasonPhrase);
