@@ -275,6 +275,8 @@ class _SectionPageState extends State<SectionPage> {
                                         Container(
                                           height: 80,
                                           child: Card(
+                                            color:    test.content.isEmpty
+                                        ? Colors.grey.shade300:Colors.white,
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(18),
