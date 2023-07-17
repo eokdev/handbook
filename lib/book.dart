@@ -166,31 +166,43 @@ class Contents extends StatelessWidget {
               shrinkWrap: true,
               itemCount: contents!.length,
               itemBuilder: (context, index) {
-                return Row(
+                return Column(
                   children: [
-                    Text(
-                        contents![index].number == null
-                            ? ""
-                            : contents![index].number.toString(),
-                        overflow: TextOverflow.visible,
-                        style: GoogleFonts.inter(
-                            color: purple,
-                            fontSize: 15,
-                            fontWeight: contents![index].isBold == true
-                                ? FontWeight.bold
-                                : FontWeight.normal)),
                     SizedBox(
-                      width: 5,
+                      height: 7,
                     ),
-                    Flexible(
-                      child: Text(contents![index].name.toString(),
-                          overflow: TextOverflow.visible,
-                          style: GoogleFonts.inter(
-                              color: purple,
-                              fontSize: 15,
-                              fontWeight: contents![index].isBold == true
-                                  ? FontWeight.bold
-                                  : FontWeight.normal)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            contents![index].number == null
+                                ? ""
+                                : contents![index].number.toString(),
+                            overflow: TextOverflow.visible,
+                            style: GoogleFonts.inter(
+                                color: purple,
+                                fontSize: 15,
+                                fontWeight: contents![index].isBold == true
+                                    ? FontWeight.bold
+                                    : FontWeight.normal)),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Flexible(
+                          child: Text(contents![index].name.toString(),
+                              overflow: TextOverflow.visible,
+                              style: GoogleFonts.inter(
+                                  color: purple,
+                                  fontSize: 15,
+                                  fontWeight: contents![index].isBold == true
+                                      ? FontWeight.bold
+                                      : FontWeight.normal)),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 7,
                     ),
                   ],
                 );
@@ -245,33 +257,46 @@ class AnotherContent extends StatelessWidget {
                         SizedBox(
                           height: 7,
                         ),
-                        Row(
+                        Column(
                           children: [
-                            Text(
-                                subContent![index].number == null
-                                    ? ""
-                                    : subContent![index].number.toString(),
-                                overflow: TextOverflow.visible,
-                                style: GoogleFonts.inter(
-                                    color: purple,
-                                    fontSize: 15,
-                                    fontWeight:
-                                        subContent![index].isBold == true
-                                            ? FontWeight.bold
-                                            : FontWeight.normal)),
                             SizedBox(
-                              width: 5,
+                              height: 7,
                             ),
-                            Flexible(
-                              child: Text(subContent![index].body.toString(),
-                                  overflow: TextOverflow.visible,
-                                  style: GoogleFonts.inter(
-                                      color: purple,
-                                      fontSize: 15,
-                                      fontWeight:
-                                          subContent![index].isBold == true
-                                              ? FontWeight.bold
-                                              : FontWeight.normal)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    subContent![index].number == null
+                                        ? ""
+                                        : subContent![index].number.toString(),
+                                    overflow: TextOverflow.visible,
+                                    style: GoogleFonts.inter(
+                                        color: purple,
+                                        fontSize: 15,
+                                        fontWeight:
+                                            subContent![index].isBold == true
+                                                ? FontWeight.bold
+                                                : FontWeight.normal)),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Flexible(
+                                  child: Text(
+                                      subContent![index].body.toString(),
+                                      overflow: TextOverflow.visible,
+                                      style: GoogleFonts.inter(
+                                          color: purple,
+                                          fontSize: 15,
+                                          fontWeight:
+                                              subContent![index].isBold == true
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal)),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 7,
                             ),
                           ],
                         ),
@@ -364,7 +389,7 @@ class TableBody extends StatelessWidget {
     return tableBody!.isEmpty
         ? Container()
         : Container(
-            height: tableBody!.length > 10 ? double.maxFinite : 800,
+            height: tableBody!.length > 10 ? 800 : 800,
             width: tableHeader!.length == 2
                 ? MediaQuery.of(context).size.width / 2
                 : 130,

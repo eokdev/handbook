@@ -201,7 +201,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           for (int i = 0; i < task.length; i++) {
                             suggestion.add(task[i]);
                           }
-                          return Expanded(
+                          return Flexible(
                             child: Column(
                               children: [
                                 SlidefromRight(
@@ -247,94 +247,94 @@ class _HomePageState extends ConsumerState<HomePage> {
                                         )),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                CupertinoScrollbar(
-                                  thumbVisibility: true,
-                                  controller: scrollController,
-                                  child: Theme(
-                                    data: Theme.of(context).copyWith(
-                                      scrollbarTheme: ScrollbarThemeData(
-                                        crossAxisMargin: 0,
+                             
+                                Expanded(
+                                  child: CupertinoScrollbar(
+                                    thumbVisibility: true,
+                                    controller: scrollController,
+                                    child: Theme(
+                                      data: Theme.of(context).copyWith(
+                                        scrollbarTheme: ScrollbarThemeData(
+                                          crossAxisMargin: 0,
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 10, 10, 0),
-                                      child: ListView.builder(
-                                          controller: scrollController,
-                                          padding: EdgeInsets.only(bottom: 30),
-                                          physics: BouncingScrollPhysics(),
-                                          shrinkWrap: true,
-                                          itemCount: 5,
-                                          itemBuilder:
-                                              (BuildContext context, index) {
-                                            var test = done[index];
-                                            //  print(taskk.length);
-                                            return Padding(
-                                              padding:
-                                                  EdgeInsets.only(bottom: 10),
-                                              child: InkWell(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      CupertinoPageRoute(
-                                                          builder: (context) =>
-                                                              SectionPage(
-                                                                subCategory: test
-                                                                    .subCategory,
-                                                                //subCart: test.subCategory,
-                                                                restApi: test
-                                                                    .chapter,
-                                                              )));
-                                                },
-                                                child: SlidefromBottom(
-                                                  child: Column(
-                                                    children: [
-                                                      Container(
-                                                        height: 80,
-                                                        child: Card(
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        18),
-                                                          ),
-                                                          elevation: 5,
-                                                          child: Align(
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: ListTile(
-                                                              horizontalTitleGap:
-                                                                  10,
-                                                              contentPadding:
-                                                                  EdgeInsets.only(
-                                                                      left: 15),
-                                                              dense: true,
-                                                              leading: Icon(
-                                                                  Icons
-                                                                      .shape_line,
-                                                                  color: purple,
-                                                                  size: 25),
-                                                              title: Text(
-                                                                  "Chapter",
-                                                                  style: GoogleFonts.inter(
-                                                                      fontSize:
-                                                                          16,
-                                                                      color:
-                                                                          purple)),
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                        child: ListView.builder(
+                                            controller: scrollController,
+                                            padding: EdgeInsets.only(bottom: 30),
+                                            physics: BouncingScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: done.length,
+                                            itemBuilder:
+                                                (BuildContext context, index) {
+                                              var test = done[index];
+                                              //  print(taskk.length);
+                                              return Padding(
+                                                padding:
+                                                    EdgeInsets.only(bottom: 10),
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        CupertinoPageRoute(
+                                                            builder: (context) =>
+                                                                SectionPage(
+                                                                  subCategory: test
+                                                                      .subCategory,
+                                                                  //subCart: test.subCategory,
+                                                                  restApi: test
+                                                                      .chapter,
+                                                                )));
+                                                  },
+                                                  child: SlidefromBottom(
+                                                    child: Column(
+                                                      children: [
+                                                        Container(
+                                                          height: 80,
+                                                          child: Card(
+                                                            shape:
+                                                                RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          18),
+                                                            ),
+                                                            elevation: 5,
+                                                            child: Align(
+                                                              alignment: Alignment
+                                                                  .centerLeft,
+                                                              child: ListTile(
+                                                                horizontalTitleGap:
+                                                                    10,
+                                                                contentPadding:
+                                                                    EdgeInsets.only(
+                                                                        left: 15),
+                                                                dense: true,
+                                                                leading: Icon(
+                                                                    Icons
+                                                                        .shape_line,
+                                                                    color: purple,
+                                                                    size: 25),
+                                                                title: Text(
+                                                                  test.chapter.toString(),
+                                                                    style: GoogleFonts.inter(
+                                                                        fontSize:
+                                                                            16,
+                                                                        color:
+                                                                            purple)),
+                                                              ),
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            );
-                                          }),
+                                              );
+                                            }),
+                                      ),
                                     ),
                                   ),
                                 ),
