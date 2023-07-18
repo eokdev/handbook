@@ -320,7 +320,10 @@ class TableHeader extends StatelessWidget {
         : SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Container(
-              height: tableHeader!.length > 3 ? 900 : double.maxFinite,
+              constraints: BoxConstraints(
+                minHeight: 800, 
+                maxHeight: tableHeader![1].name!.contains("OFFENCES")? 1600:1100
+              ),
               width: tableHeader!.length > 3
                   ? 1000
                   : tableHeader!.length == 2
@@ -389,7 +392,10 @@ class TableBody extends StatelessWidget {
     return tableBody!.isEmpty
         ? Container()
         : Container(
-            height: tableBody!.length > 10 ? 800 : 800,
+           constraints: BoxConstraints(
+            minHeight: 800, 
+            maxHeight: tableBody!.length>13? 1590:1000
+           ),
             width: tableHeader!.length == 2
                 ? MediaQuery.of(context).size.width / 2
                 : 130,
